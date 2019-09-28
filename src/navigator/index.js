@@ -32,7 +32,18 @@ const AppNavigator = createBottomTabNavigator(
       },
     },
   },
-  {drawerPosition: 'right', drawerType: 'slide', drawerWidth: 200},
+  {
+    tabBarOptions: {
+      activeTintColor: 'green',
+      labelStyle: {
+        // fontSize: 12,
+      },
+      style: {
+        backgroundColor: 'black',
+        borderTopColor: 'black',
+      },
+    },
+  },
 );
 
 export default AppNavigator;

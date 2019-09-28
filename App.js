@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, View, Text} from 'react-native';
+import {Button, View, Text, StatusBar} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {Provider} from 'react-redux';
 import store from './src/redux/store';
@@ -7,10 +7,16 @@ import store from './src/redux/store';
 import Navigator from './src/navigator';
 
 let Navigation = createAppContainer(Navigator);
+
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 export default class App extends React.Component {
+  componentDidMount() {
+    changeNavigationBarColor('black');
+  }
   render() {
     return (
-      <Provider store={store}>
+      <Provider style={{backgroundColor: 'black'}} store={store}>
+        <StatusBar backgroundColor="black" barStyle="light-content" />
         <Navigation />
       </Provider>
     );
