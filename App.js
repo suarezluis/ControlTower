@@ -1,5 +1,13 @@
 import React from 'react';
-import {Button, View, Text, StatusBar} from 'react-native';
+import {
+  Button,
+  View,
+  Text,
+  StatusBar,
+  Platform,
+  PermissionsAndroid,
+  SafeAreaView,
+} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {Provider} from 'react-redux';
 import store from './src/redux/store';
@@ -12,11 +20,18 @@ import changeNavigationBarColor from 'react-native-navigation-bar-color';
 export default class App extends React.Component {
   componentDidMount() {
     changeNavigationBarColor('black');
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
+    }
   }
   render() {
     return (
       <Provider style={{backgroundColor: 'black'}} store={store}>
-        <StatusBar backgroundColor="black" barStyle="light-content" />
+        <SafeAreaView style={{backgroundColor: 'black'}}>
+          <StatusBar backgroundColor="black" barStyle="light-content" />
+        </SafeAreaView>
         <Navigation />
       </Provider>
     );

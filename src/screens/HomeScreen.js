@@ -30,9 +30,9 @@ export default class HomeScreen extends React.Component {
           style={{
             color: 'white',
             // fontFamily: 'monospace',
-            fontWeight: '800',
+            // fontWeight: '800',
             fontSize: 40,
-            marginTop: '5%',
+            marginTop: '10%',
           }}>
           Control Tower
         </Text>
@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
           style={{
             color: 'black',
             // fontFamily: 'sans-serif-condensed',
-            fontWeight: '900',
+            // fontWeight: '900',
             fontSize: 25,
             position: 'absolute',
             top: 200,
