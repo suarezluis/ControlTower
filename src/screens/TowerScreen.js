@@ -6,6 +6,7 @@ import {Icon} from 'react-native-elements';
 
 export default class TowerScreen extends React.Component {
   state = {
+    mapType: 'satellite',
     last: {
       accuracy: 0,
       altitude: 0,
@@ -26,6 +27,7 @@ export default class TowerScreen extends React.Component {
       speed: 0,
       timestamp: 0,
     },
+    pilot: {latitude: 37.33131185, longitude: -122.03075659},
   };
   componentDidMount() {
     // Geolocation.getCurrentPosition(position => console.log(position));
@@ -54,19 +56,15 @@ export default class TowerScreen extends React.Component {
         <View style={styles.mapContainer}>
           <MapView
             provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-            mapType="satellite"
+            mapType={this.state.mapType}
             style={styles.map}
             region={{
-              latitude: this.state.current.latitude,
-              longitude: this.state.current.longitude,
+              latitude: this.state.pilot.latitude,
+              longitude: this.state.pilot.longitude,
               latitudeDelta:
-                this.state.current.latitude +
-                0.001 -
-                this.state.current.latitude,
+                (this.state.pilot.latitude - this.state.current.latitude) * 3,
               longitudeDelta:
-                this.state.current.longitude +
-                0.001 -
-                this.state.current.longitude,
+                (this.state.pilot.longitude - this.state.current.longitude) * 3,
             }}>
             <Marker
               coordinate={{
@@ -77,6 +75,17 @@ export default class TowerScreen extends React.Component {
               description={'This is the aircraft'}
               icon={require('../../assets/image/plane.png')}
               rotation={this.state.current.heading - 45}
+            />
+            <Marker
+              coordinate={{
+                latitude: this.state.pilot.latitude,
+                longitude: this.state.pilot.longitude,
+              }}
+              icon={require('../../assets/image/pilot.png')}
+              title={'Pilot'}
+              description={'This is the aircraft'}
+
+              // rotation={this.state.current.heading - 45}
             />
           </MapView>
         </View>
@@ -133,6 +142,16 @@ export default class TowerScreen extends React.Component {
             </Text>
           </View>
         </View>
+        {this.state.mapType == 'satellite' ? (
+          <Button
+            title={'Map'}
+            onPress={() => this.setState({mapType: 'standard'})}></Button>
+        ) : (
+          <Button
+            title={'Satellite'}
+            onPress={() => this.setState({mapType: 'satellite'})}></Button>
+        )}
+        <Icon name="sc-telegram" type="evilicon" color="#517fa4" />
       </View>
     );
   }
